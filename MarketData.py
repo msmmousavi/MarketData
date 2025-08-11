@@ -30,7 +30,6 @@ ID_MAP = {
 FA_TITLES = {
     "ons": "🪙 انس",
     "dollar": "💵 دلار",
-    "tether": "💰 تتر",
     "gold_18": "🥇 طلا ۱۸ عیار",
     "sekee": "🏅 سکه امامی"
 }
@@ -79,8 +78,7 @@ def get_prices_selenium():
         wait = WebDriverWait(driver, 10)
 
         data = {}
-        all_keys = ID_MAP.copy()
-        all_keys["tether"] = "l-crypto-tether-irr"
+        all_keys = ID_MAP.copy()  # دیگه تتر رو اضافه نمی‌کنیم
 
         for key, elem_id in all_keys.items():
             try:
@@ -156,7 +154,6 @@ def build_report_message(data):
     global_rows = [
         ("ons", True),
         ("dollar", False),
-        ("tether", False),
     ]
     for key, is_dollar in global_rows:
         price = data.get(key, {}).get("price")
