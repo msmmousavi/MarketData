@@ -76,7 +76,7 @@ def get_prices_selenium():
     driver = get_driver()
     try:
         driver.get("https://www.tgju.org/")
-        wait = WebDriverWait(driver, 30)
+        wait = WebDriverWait(driver, 10)
 
         data = {}
         all_keys = ID_MAP.copy()
