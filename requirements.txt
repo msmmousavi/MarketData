@@ -2,3 +2,4 @@ selenium
 requests
 pytz
 beautifulsoup4
+flask
