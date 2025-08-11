@@ -1,33 +1,17 @@
-name: Run Market Data Bot
+name: Run MarketData
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'  # هر 5 دقیقه
+    - cron: '*/15 * * * *'  # هر ۵ دقیقه اجرا می‌شود
+  workflow_dispatch:
 
 jobs:
   run-marketdata:
     runs-on: ubuntu-latest
 
-    env:
-      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Cache APT packages
-        uses: actions/cache@v3
-        with:
-          path: /var/cache/apt
-          key: apt-cache-firefox
-
-      - name: Cache pip packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: pip-cache
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -37,10 +21,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y firefox xvfb
-          pip install --upgrade pip
-          pip install selenium requests pytz
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run MarketData.py
-        run: xvfb-run python MarketData.py
+      - name: Run MarketData script
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python MarketData.py
