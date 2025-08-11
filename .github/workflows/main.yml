@@ -1,30 +1,46 @@
-name: Run Gold Report Bot
+name: Run Market Data Bot
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"  # هر 5 دقیقه یک‌بار
+    - cron: '*/15 * * * *'  # هر 5 دقیقه
 
 jobs:
-  run-bot:
+  run-marketdata:
     runs-on: ubuntu-latest
 
+    env:
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Cache APT packages
+        uses: actions/cache@v3
+        with:
+          path: /var/cache/apt
+          key: apt-cache-firefox
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y firefox xvfb
-        pip install --upgrade pip
-        pip install selenium requests pytz jdatetime beautifulsoup4
+      - name: Cache pip packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: pip-cache
 
-    - name: Run Bot Script
-      run: |
-        xvfb-run MarketData.py
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox xvfb
+          pip install --upgrade pip
+          pip install selenium requests pytz
+
+      - name: Run MarketData.py
+        run: xvfb-run python MarketData.py
