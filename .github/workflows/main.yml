@@ -1,0 +1,30 @@
+name: Run Gold Report Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"  # هر 5 دقیقه یک‌بار
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y firefox xvfb
+        pip install --upgrade pip
+        pip install selenium requests pytz jdatetime beautifulsoup4
+
+    - name: Run Bot Script
+      run: |
+        xvfb-run MarketData.py
