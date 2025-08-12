@@ -2,7 +2,7 @@ name: Run MarketData
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # هر ۵ دقیقه اجرا می‌شود
+    - cron: '*/15 * * * *'  # هر ۵ دقیقه اجرا می‌شود
   workflow_dispatch:
 
 jobs:
