@@ -25,18 +25,23 @@ ID_MAP = {
     "dollar": "l-price_dollar_rl",
     "sekee": "l-sekee",
     "gold_18": "l-geram18",
+    "tether": "l-crypto-tether-irr",   # ✅ اصلاح شد
+    "oil_brent": "l-oil_brent",        # ✅ نفت برنت
+    "bitcoin": "l-crypto-bitcoin",     # ✅ بیت‌کوین
 }
-
 FA_TITLES = {
-    "ons": "🪙 انس",
+    "ons": "⚖️ انس",
     "dollar": "💵 دلار",
     "gold_18": "🥇 طلا ۱۸ عیار",
-    "sekee": "🏅 سکه امامی"
+    "sekee": "🏅 سکه امامی",
+    "tether": "🔗 تتر",
+    "oil_brent": "🛢 نفت برنت",
+    "bitcoin": "₿ بیت‌کوین",
 }
 
 TITLE_EMOJIS = {
     "global": "📈",
-    "gold_coin": "🪙",
+    "gold_coin": "💰",
 }
 
 # --------------------------
@@ -154,6 +159,7 @@ def build_report_message(data):
     global_rows = [
         ("ons", True),
         ("dollar", False),
+        ("tether", False),
     ]
     for key, is_dollar in global_rows:
         price = data.get(key, {}).get("price")
