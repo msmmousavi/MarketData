@@ -155,7 +155,7 @@ def build_report_message(data):
     lines = []
 
     # Global FX
-    lines.append(f"📈 Global FX")
+    #lines.append(f"📈 Global FX")
     global_rows = [
         ("ons", True),
         ("dollar", False),
@@ -178,7 +178,7 @@ def build_report_message(data):
     lines.append("")
 
     # Gold & Coins
-    lines.append(f"🪙 Gold & Coins ")
+    #lines.append(f"🪙 Gold & Coins ")
     for key in ["gold_18", "sekee"]:
         price = data.get(key, {}).get("price")
         change = data.get(key, {}).get("change")
@@ -196,7 +196,7 @@ def build_report_message(data):
     lines.append("")
 
     # Gold Funds
-    lines.append(f"📦 Gold Funds ")
+   # lines.append(f"📦 Gold Funds ")
     funds = data.get("funds", {})
     for fund_name in ["صندوق طلای زر", "صندوق طلای عیار", "صندوق طلای لوتوس"]:
         f = funds.get(fund_name, {"price": None})
@@ -205,7 +205,7 @@ def build_report_message(data):
     lines.append("")
 
     # Intrinsic & Bubbles
-    lines.append(f"💹 Intrinsic & Bubbles")
+    #lines.append(f"💹 Intrinsic & Bubbles")
     factor = 4.24927
     ons_price = data.get("ons", {}).get("price")
     dollar_price = data.get("dollar", {}).get("price")
@@ -239,7 +239,7 @@ def build_report_message(data):
         lines.append("")
 
     # Dollar Equivalent
-    lines.append(f"💵 Dollar Equivalents")
+    #lines.append(f"💵 Dollar Equivalents")
     if ons_price and sekee_price:
         dollar_sekee = int((factor * sekee_price) / ons_price)
         lines.append(f"💲 دلار سکه: {dollar_sekee:,}")
