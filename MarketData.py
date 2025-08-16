@@ -179,6 +179,7 @@ def build_report_message(data):
 
     # Gold & Coins
     #lines.append(f"🪙 Gold & Coins ")
+     lines.append("")
     for key in ["gold_18", "sekee"]:
         price = data.get(key, {}).get("price")
         change = data.get(key, {}).get("change")
@@ -197,14 +198,16 @@ def build_report_message(data):
 
     # Gold Funds
    # lines.append(f"📦 Gold Funds ")
+     lines.append("")
     funds = data.get("funds", {})
     for fund_name in ["صندوق طلای زر", "صندوق طلای عیار", "صندوق طلای لوتوس"]:
         f = funds.get(fund_name, {"price": None})
         price_str = format_price_rounded(f.get("price"))
-        lines.append(f"💳 {fund_name}: {price_str}")
+        lines.append(f"📦 {fund_name}: {price_str}")
     lines.append("")
 
     # Intrinsic & Bubbles
+     lines.append("")
     #lines.append(f"💹 Intrinsic & Bubbles")
     factor = 4.24927
     ons_price = data.get("ons", {}).get("price")
@@ -239,6 +242,7 @@ def build_report_message(data):
         lines.append("")
 
     # Dollar Equivalent
+     lines.append("")
     #lines.append(f"💵 Dollar Equivalents")
     if ons_price and sekee_price:
         dollar_sekee = int((factor * sekee_price) / ons_price)
